@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f7f7f7, #e3e3e3);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        #map {
+            width: 90%;
+            height: 70vh;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Location Map</h1>
+    <div id="map"></div>
+    <footer>
+        &copy; 2024 <a href="index.html">SHMACK</a>. All rights reserved.
+    </footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Fetch the IP geolocation using ipinfo.io with the provided token
+            const token = "247839ab7ca122";
+            const ipInfoUrl = `https://ipinfo.io/json?token=${token}`;
+
+            // Initialize the map
+            const map = L.map('map').setView([0, 0], 2); // Default location until the IP is resolved
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Fetch geolocation data
+            fetch(ipInfoUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch IP information");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const location = data.loc.split(","); // "lat,long" -> ["lat", "long"]
+                    const latitude = parseFloat(location[0]);
+                    const longitude = parseFloat(location[1]);
+                    const ip = data.ip;
+
+                    // Set the map view to the fetched location
+                    map.setView([latitude, longitude], 13);
+
+                    // Add a marker with a popup showing the IP address
+                    const marker = L.marker([latitude, longitude]).addTo(map);
+                    marker.bindPopup(`<b>IP Address:</b> ${ip}<br><b>Location:</b> ${latitude}, ${longitude}`).openPopup();
+                })
+                .catch(error => {
+                    console.error("Error fetching IP information: ", error);
+                    alert("Unable to fetch location data. Check console for details.");
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+MariaDB [(none)]> SELECT 
+    ->     c.CostCenter_Name, 
+    ->     SUM(l.Yearly_Cost) AS Total_Yearly_Cost
+    -> FROM 
+    ->     Leases l
+    -> JOIN 
+    ->     CostCenter c ON l.CostCenter_ID = c.CostCenter_ID
+    -> WHERE 
+    ->     l.Terminated_Lease = FALSE
+    -> GROUP BY 
+    ->     c.CostCenter_Name;
+ERROR 1046 (3D000): No database selected
+MariaDB [(none)]> use wbilal_db
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [wbilal_db]> SELECT      c.CostCenter_Name,      SUM(l.Yearly_Cost) AS Total_Yearly_Cost FROM      Leases l JOIN      CostCenter c ON l.CostCenter_ID = c.CostCenter_ID WHERE      l.Terminated_Lease = FALSE GROUP BY      c.CostCenter_Name;
++-----------------+-------------------+
+| CostCenter_Name | Total_Yearly_Cost |
++-----------------+-------------------+
+| Africa          |          60500.00 |
+| APAC            |          38000.00 |
+| Europe          |          12000.00 |
+| Latin America   |          64000.00 |
+| North America   |          57000.00 |
+| UK & Ireland    |          23000.00 |
++-----------------+-------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> SELECT 
+    ->     u.Name AS User_Name, 
+    ->     u.Email, 
+    ->     s.Subsidiary_Name, 
+    ->     c.CostCenter_Name
+    -> FROM 
+    ->     Users u
+    -> JOIN 
+    ->     Subsidiaries s ON u.Subsidiary_ID = s.Subsidiary_ID
+    -> JOIN 
+    ->     CostCenter c ON u.CostCenter_ID = c.CostCenter_ID;
++-----------------------+---------------------------------+-----------------+-----------------+
+| User_Name             | Email                           | Subsidiary_Name | CostCenter_Name |
++-----------------------+---------------------------------+-----------------+-----------------+
+| Paula Alvarez         | palvarez@shnackspark.com        | ChocoLuxe       | Latin America   |
+| Giovanni Sylvester    | gsylvester@shnackspark.com      | TwistMunch      | UK & Ireland    |
+| Bilal Waraich         | bwaraich@shnackspark.com        | CrispBlitz      | North America   |
+| Steve Jobs            | sjobs@shnackspark.com           | BiteBurst       | APAC            |
+| Gabriel Toledo        | gtoledo@shnackspark.com         | CrispBlitz      | UK & Ireland    |
+| Arnold Schwarzenegger | aschwarzenegger@shnackspark.com | ChocoLuxe       | North America   |
++-----------------------+---------------------------------+-----------------+-----------------+
+6 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> 
+MariaDB [wbilal_db]> SELECT 
+    ->     s.Subsidiary_Name,
+    ->     l.Lease_ID, 
+    ->     s.Workforce_Size, 
+    ->     l.Lease_start_date, 
+    ->     l.Lease_termination_date, 
+    ->     l.Yearly_Cost
+    -> FROM 
+    ->     Subsidiaries s
+    -> JOIN 
+    ->     Leases l ON s.Subsidiary_ID = l.Subsidiary_ID
+    -> WHERE 
+    ->     s.Workforce_Size > 200;
++-----------------+----------+----------------+------------------+------------------------+-------------+
+| Subsidiary_Name | Lease_ID | Workforce_Size | Lease_start_date | Lease_termination_date | Yearly_Cost |
++-----------------+----------+----------------+------------------+------------------------+-------------+
+| CrunchRolls     |     5003 |            270 | 2022-03-31       | 2023-03-31             |    20000.00 |
+| BiteBurst       |     5004 |            250 | 2022-04-30       | 2023-04-30             |    18000.00 |
+| TwistMunch      |     5005 |            300 | 2022-05-31       | 2023-05-31             |    17000.00 |
+| NuttyCrave      |     5010 |            220 | 2022-10-31       | 2023-10-31             |    23000.00 |
+| DipDunkers      |     5011 |            230 | 2022-11-30       | 2023-11-30             |    25000.00 |
+| CheeseCrisp     |     5012 |            260 | 2022-12-31       | 2023-12-31             |    24000.00 |
+| MintyShake      |     5014 |            269 | 2023-02-28       | 2024-02-28             |    26000.00 |
+| ChickWrap       |     5015 |            420 | 2023-03-31       | 2024-03-31             |    18000.00 |
+| BiteBurst       |     5016 |            250 | 2023-04-30       | 2024-04-30             |    24000.00 |
+| DipDunkers      |     5017 |            230 | 2023-05-31       | 2024-05-31             |    15000.00 |
+| MintyShake      |     5020 |            269 | 2023-08-31       | 2024-08-31             |    22000.00 |
+| CinnamonBalls   |     5021 |            220 | 2023-09-30       | 2024-09-30             |    24000.00 |
++-----------------+----------+----------------+------------------+------------------------+-------------+
+12 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> SELECT 
+    ->     cc.CostCenter_Name,
+    ->     COUNT(l.Lease_ID) AS Lease_Count,
+    ->     SUM(l.Yearly_Cost) AS Total_Yearly_Cost
+    -> FROM 
+    ->     Leases l
+    -> JOIN 
+    ->     Subsidiaries s ON l.Subsidiary_ID = s.Subsidiary_ID
+    -> JOIN 
+    ->     CostCenter cc ON l.CostCenter_ID = cc.CostCenter_ID
+    -> WHERE 
+    ->     l.Terminated_Lease = FALSE
+    -> GROUP BY 
+    ->     cc.CostCenter_Name;
++-----------------+-------------+-------------------+
+| CostCenter_Name | Lease_Count | Total_Yearly_Cost |
++-----------------+-------------+-------------------+
+| Africa          |           3 |          60500.00 |
+| APAC            |           2 |          38000.00 |
+| Europe          |           1 |          12000.00 |
+| Latin America   |           3 |          64000.00 |
+| North America   |           3 |          57000.00 |
+| UK & Ireland    |           1 |          23000.00 |
++-----------------+-------------+-------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> SELECT 
+    ->     o.Office_Name, 
+    ->     o.Office_Location, 
+    ->     cc.CostCenter_Name
+    -> FROM 
+    ->     Office o
+    -> JOIN 
+    ->     Leases l ON o.Lease_ID = l.Lease_ID
+    -> JOIN 
+    ->     CostCenter cc ON l.CostCenter_ID = cc.CostCenter_ID
+    -> WHERE 
+    ->     cc.CostCenter_Name = 'Africa'; 
++---------------------+---------------------+-----------------+
+| Office_Name         | Office_Location     | CostCenter_Name |
++---------------------+---------------------+-----------------+
+| Uptown Office       | Main Street 12      | Africa          |
+| Business Hub Office | Financial Street 14 | Africa          |
++---------------------+---------------------+-----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> SELECT
+    -> v.Vehicle_model,
+    -> v.Vehicle_ID,
+    -> v.Vehicle_name,
+    -> l.Lease_ID,
+    -> l.Monthly_Cost
+    -> FROM
+    -> Vehicle v
+    -> JOIN
+    -> Leases l ON v.Lease_ID = l.Lease_ID;
++---------------+------------+-------------------+----------+--------------+
+| Vehicle_model | Vehicle_ID | Vehicle_name      | Lease_ID | Monthly_Cost |
++---------------+------------+-------------------+----------+--------------+
+| B 1234        |       6001 | Toyota Corolla    |     5001 |      1000.00 |
+| M 5678        |       6002 | Range Rover Sport |     5002 |      1250.00 |
+| HH 2345       |       6003 | Ferrari Laferrari |     5003 |      1666.67 |
+| D 7890        |       6004 | Nissan Skyline    |     5004 |      1500.00 |
+| F 3456        |       6005 | Ford F150         |     5005 |      1416.67 |
+| S 8901        |       6006 | Nissan GTR        |     5006 |      1583.33 |
+| K 4567        |       6007 | Lamborghini SVJ   |     5013 |      1083.33 |
+| B 5678        |       6008 | Mitsubishi Pajero |     5014 |      2166.67 |
++---------------+------------+-------------------+----------+--------------+
+8 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> 
+MariaDB [wbilal_db]> SELECT 
+    ->     s.Subsidiary_Name, 
+    ->     u.Name AS Manager_Name, 
+    ->     u.PermissionsRights
+    -> FROM 
+    ->     Users u
+    -> JOIN 
+    ->     Subsidiaries s ON u.Subsidiary_ID = s.Subsidiary_ID
+    -> WHERE 
+    ->     u.Role = 'Manager'
+    -> GROUP BY 
+    ->     s.Subsidiary_Name, u.Name, u.PermissionsRights;
++-----------------+---------------+-------------------+
+| Subsidiary_Name | Manager_Name  | PermissionsRights |
++-----------------+---------------+-------------------+
+| CrispBlitz      | Alice Johnson | Read, Write       |
++-----------------+---------------+-------------------+
+1 row in set (0.001 sec)
+
+MariaDB [wbilal_db]> SELECT 
+    ->     CostCenter_Name, 
+    ->     Budget
+    -> FROM 
+    ->     CostCenter;
++-----------------+----------+
+| CostCenter_Name | Budget   |
++-----------------+----------+
+| Europe          | 50000.00 |
+| Latin America   | 60000.00 |
+| APAC            | 45000.00 |
+| UK & Ireland    | 70000.00 |
+| North America   | 65000.00 |
+| Africa          | 55000.00 |
++-----------------+----------+
+6 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> SELECT 
+    ->     l.Lease_ID, 
+    ->     l.Lease_termination_date
+    -> FROM 
+    ->     Leases l
+    -> WHERE
+    ->     l.Terminated_Lease = TRUE
+    -> 
+    -> GROUP BY
+    ->     l.Lease_ID, l.Lease_termination_date;
++----------+------------------------+
+| Lease_ID | Lease_termination_date |
++----------+------------------------+
+|     5002 | 2023-02-28             |
+|     5004 | 2023-04-30             |
+|     5007 | 2023-07-31             |
+|     5009 | 2023-09-30             |
+|     5013 | 2024-01-31             |
+|     5016 | 2024-04-30             |
+|     5019 | 2024-07-31             |
+|     5021 | 2024-09-30             |
++----------+------------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> SELECT 
+    ->     Lease_ID, 
+    ->     Monthly_Cost
+    -> FROM 
+    ->     Leases
+    -> WHERE 
+    ->     Monthly_Cost > (SELECT AVG(Monthly_Cost) FROM Leases);
++----------+--------------+
+| Lease_ID | Monthly_Cost |
++----------+--------------+
+|     5003 |      1666.67 |
+|     5007 |      1833.33 |
+|     5009 |      1750.00 |
+|     5010 |      1916.67 |
+|     5011 |      2083.33 |
+|     5012 |      2000.00 |
+|     5014 |      2166.67 |
+|     5016 |      2000.00 |
+|     5019 |      1666.67 |
+|     5020 |      1833.33 |
+|     5021 |      2000.00 |
++----------+--------------+
+11 rows in set (0.000 sec)
+
+MariaDB [wbilal_db]> SELECT 
+    ->     a.Apartment_name,
+    ->     a.Apartment_location,
+    ->     l.Lease_ID, 
+    ->     l.Yearly_Cost
+    -> FROM 
+    ->     Apartment a
+    -> JOIN 
+    ->     Leases l ON a.Lease_ID = l.Lease_ID
+    -> GROUP BY 
+    ->     a.Apartment_name,a.Apartment_location, l.Lease_ID, l.Yearly_Cost
+    -> ORDER BY 
+    ->     l.Yearly_Cost DESC;
++----------------------+--------------------+----------+-------------+
+| Apartment_name       | Apartment_location | Lease_ID | Yearly_Cost |
++----------------------+--------------------+----------+-------------+
+| Oakwood Apartment    | Lakeside Drive 5   |     5011 |    25000.00 |
+| Cedar Apartment      | Pine Avenue 4      |     5010 |    23000.00 |
+| Greenfield Apartment | Park Lane 1        |     5007 |    22000.00 |
+| Maple Apartment      | Elm Street 3       |     5009 |    21000.00 |
+| Magnolia Apartment   | Hillcrest Road 6   |     5015 |    18000.00 |
+| Sunrise Apartment    | Ocean View 2       |     5008 |    16000.00 |
++----------------------+--------------------+----------+-------------+
+6 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> SELECT 
+    ->     s.Location, 
+    ->     s.Subsidiary_ID,
+    ->     SUM(s.Workforce_Size) AS Total_Workforce
+    -> FROM 
+    ->     Subsidiaries s
+    -> GROUP BY 
+    ->     s.Location
+    -> HAVING 
+    ->     SUM(s.Workforce_Size) > 0;  
++------------+---------------+-----------------+
+| Location   | Subsidiary_ID | Total_Workforce |
++------------+---------------+-----------------+
+| Barcelona  |          3002 |             200 |
+| Bogota     |          3015 |             269 |
+| Capetown   |          3007 |             180 |
+| Casablanca |          3008 |             260 |
+| Delhi      |          3011 |             120 |
+| Dhaka      |          3012 |             420 |
+| Dublin     |          3006 |             220 |
+| Hamburg    |          3001 |             100 |
+| Kingston   |          3004 |             300 |
+| London     |          3005 |             250 |
+| New York   |          3009 |             230 |
+| Quito      |          3003 |             150 |
+| Singapore  |          3013 |             220 |
+| Tokyo      |          3010 |             270 |
+| Zürich     |          3014 |             100 |
++------------+---------------+-----------------+
+15 rows in set (0.001 sec)
+
+MariaDB [wbilal_db]> notee;

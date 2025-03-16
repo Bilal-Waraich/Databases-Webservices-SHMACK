@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Land</title>
+    <link rel="stylesheet" href="css/formstyle.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="img/logo.webp" alt="SHMACK Logo" class="logo">
+            <h1>SHMACK</h1>
+        </div>
+        <nav class="navbar">
+            <ul class="navbar-list">
+                <li class="navbar-item"><a href="index.html" class="navbar-link">Home</a></li>
+                <li class="navbar-item"><a href="imprint.html" class="navbar-link">Imprint</a></li>
+                <li class="navbar-item"><a href="maintenance.html" class="navbar-link">Maintenance</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="entity-input">
+        <h2>Input Land</h2>
+        <form action="submit_land.php" method="POST">
+            <label for="land_name">Land Name:</label>
+            <input type="text" id="land_name" name="land_name" required>
+
+            <label for="land_size">Land Size (sqm):</label>
+            <input type="number" id="land_size" name="land_size" step="0.01" required>
+
+            <label for="lease_id">Select Lease:</label>
+            <input type="text" id="lease_id" name="lease_id" readonly>
+            <a href="popup_lease.html" target="_blank">Select Lease</a>
+
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+</body>
+</html>

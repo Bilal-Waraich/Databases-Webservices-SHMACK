@@ -1,0 +1,96 @@
+<?php include 'fetch_data.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input User</title>
+    <link rel="stylesheet" href="css/formstyle.css">
+    <script>
+        function toggleCostCenter() {
+            const isCostCenterRelevant = document.querySelector('input[name="costcenter_relevant"]:checked').value;
+            const costCenterContainer = document.getElementById("costcenter-container");
+
+            if (isCostCenterRelevant === "yes") {
+                costCenterContainer.style.display = "block";
+            } else {
+                costCenterContainer.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="img/logo.webp" alt="SHMACK Logo" class="logo">
+            <h1>SHMACK</h1>
+        </div>
+        <nav class="navbar">
+            <ul class="navbar-list">
+                <li class="navbar-item"><a href="index.html" class="navbar-link">Home</a></li>
+                <li class="navbar-item"><a href="imprint.html" class="navbar-link">Imprint</a></li>
+                <li class="navbar-item"><a href="maintenance.html" class="navbar-link">Maintenance</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="entity-input">
+        <h2>New User Creation:</h2>
+        <form action="submit_user.php" method="POST" class="form-style">
+            
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <input type="text" id="role" name="role" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="permissions_rights">Permissions/Rights:</label>
+                <input type="text" id="permissions_rights" name="permissions_rights" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="subsidiary_id">Select Subsidiary:</label>
+                <select id="subsidiary_id" name="subsidiary_id" required>
+                    <option value="">Select</option>
+                    <?php echo $subsidiary_options; ?>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="costcenter_relevant">Is the User associated to a Cost Center?</label><br>
+                <input type="radio" id="costcenter_yes" name="costcenter_relevant" value="yes" onchange="toggleCostCenter()" required> Yes
+                <input type="radio" id="costcenter_no" name="costcenter_relevant" value="no" onchange="toggleCostCenter()" required> No
+            </div>
+        
+            <div id="costcenter-container" class="form-group" style="display: none;">
+                <label for="costcenter_id">Select Cost Center:</label>
+                <select id="costcenter_id" name="costcenter_id" required>
+                    <option value="">Select</option>
+                    <?php echo $costcenter_options; ?>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <input type="submit" value="Submit" class="submit-button">
+            </div>
+        </form>
+        
+    </section>
+</body>
+</html>

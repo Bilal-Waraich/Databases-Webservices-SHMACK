@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Maintenance</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Significantly move the content down */
+        .maintenance {
+            padding-top: 400px; /* Move the content down by 400px */
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 1.2em;
+            z-index: 10; /* Ensure links are in front */
+            position: relative; /* Position them to ensure z-index works */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Ensure other elements are not covering content */
+        .header-content, .navbar, .maintenance, li {
+            position: relative; /* Ensure proper stacking order */
+            z-index: 1; /* Lower z-index for non-link elements */
+        }
+
+        nav {
+            position: relative;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="img/logo.png" alt="SHMACK Logo" class="logo">
+            <h1>SHMACK</h1>
+        </div>
+        <nav class="navbar">
+            <ul class="navbar-list">
+                <li class="navbar-item"><a href="index.html" class="navbar-link">Home</a></li>
+                <li class="navbar-item"><a href="imprint.html" class="navbar-link">Imprint</a></li>
+                <li class="navbar-item"><a href="maintenance.html" class="navbar-link">Maintenance</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="maintenance">
+        <h2>Data Maintenance</h2>
+        <ul>
+            <li><a href="input_costcenter.html">Input Cost Center</a></li>
+            <li><a href="input_subsidiary.html">Input Subsidiary</a></li>
+            <li><a href="input_lease.php">Input Lease</a></li>
+            <li><a href="input_user.php">Input User</a></li>
+            <li><a href="input_vehicle.php">Input Vehicle</a></li>
+            <li><a href="input_apartment.php">Input Apartment</a></li>
+            <li><a href="input_office.php">Input Office</a></li>
+            <li><a href="input_land.php">Input Land</a></li>
+        </ul>
+    </section>
+</body>
+</html>

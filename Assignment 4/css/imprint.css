@@ -1,0 +1,141 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding-top: 75px;
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    position: fixed; 
+    height: 80px;
+    top: 0;
+    left: 0; 
+    right: 0; 
+    z-index: 1000; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 0px 20px; 
+    color: white;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+
+.logo {
+    width: 140px; 
+    height: 140px;
+    margin-right: 20px;
+}
+
+header h1 {
+    font-size: 2em; 
+    margin: 0;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* .navbar-item {
+    margin-left: 20px;
+} */
+
+.navbar-link {
+    color: white;
+    background-color: #28A745; 
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    border: 1px solid #28A745; 
+}
+
+
+.navbar-link:hover {
+    background-color: #218838; 
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
+}
+
+/* Active/Selected Link */
+.navbar-link:active {
+    background-color: #1e7e34; 
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Imprint Section */
+.imprint {
+    padding: 40px 20px;
+    background-color: #fff;
+    color: #333;
+    flex: 1; 
+}
+
+.imprint h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.imprint h2 {
+    font-size: 2em;
+    margin-top: 30px;
+}
+
+.imprint p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Team Section */
+.team-heading {
+    font-size: 2em;
+    margin-top: 30px;
+}
+
+.team-list {
+    list-style: none;
+    padding: 0;
+}
+
+.team-member {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+/* Footer Disclaimer */
+.footer-disclaimer {
+    font-size: 0.9em; 
+    margin: 5px 0; 
+}
